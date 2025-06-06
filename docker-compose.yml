@@ -1,0 +1,43 @@
+version: "3.8"
+
+services:
+  # Serviço de banco PostgreSQL
+  alert-pay-db:
+    image: postgres:16
+    container_name: alert-pay-db
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: alertpay
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./alertpay-data:/var/lib/postgresql/data
+    networks:
+      - alertpay-net
+
+  # Serviço da API Node.js
+  alert-pay-app:
+    build: .
+    image: alert-pay-notif
+    container_name: alert-pay-app
+    restart: unless-stopped
+    depends_on:
+      - alert-pay-db
+    env_file:
+      - .env
+    ports:
+      - "4000:4000"
+    volumes:
+      - alertpay_db_data:/var/lib/postgresql/data
+      - .:/app
+      - /app/node_modules   # para não sobrescrever node_modules do container
+    working_dir: /app
+    command: npm run dev
+    networks:
+      - alertpay-net
+
+networks:
+  alertpay-net:
+    driver: bridge
