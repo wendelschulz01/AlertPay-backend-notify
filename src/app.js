@@ -1,8 +1,8 @@
-// src/app.js
+
 require("dotenv").config();
 const express = require("express");
 const bodyParser = require("body-parser");
-const notificationRoutes = require("./routes/notificationRoutes");
+const notificationRoutes = require("./app/routes/notificationRoutes");
 const checkDueInvoicesJob = require("./jobs/checkDueInvoices");
 
 const app = express();

@@ -1,8 +1,7 @@
-// src/jobs/checkDueInvoices.js
 const cron = require("node-cron");
 const { Op } = require("sequelize");
 const InvoiceService = require("../services/InvoiceService");
-const Notification = require("../models/Notification");
+const Notification = require("../app/models/notifications");
 
 // Função que será agendada
 async function checkDueInvoicesJob() {
