@@ -1,4 +1,3 @@
- // src/controllers/NotificationController.js
 const Notification = require("../models/Notification");
 
 class NotificationController {
